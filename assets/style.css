@@ -1,0 +1,162 @@
+* {
+    box-sizing: border-box;
+}
+.explanation {
+    width: 500px;
+    position: absolute;
+    font-weight: bold;
+    display: none;
+    background-color: blue;
+    color: white;
+    z-index: 200;
+    top: 127px;
+    padding: 30px;
+    margin-top: 0px;
+}
+.header {
+    width: 100%;
+    height: 120px;
+    background-color: lightblue;
+    display: flex;
+}
+.headHead {
+    font-weight: bolder;
+    font-size: 20px;
+}
+.makeA {
+    text-align: center;
+    margin: 0 auto;
+    border-right: 2px solid black;
+    border-left: 2px solid black;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.makeAButton {
+    font-size: 50px;
+    height: 50px;
+    width: 50px;
+    display: inline-block;
+}
+.makeAText {
+    font-size: 12px;
+    position: relative;
+    top: -20px;
+}
+.square {
+    position: relative;
+    top: -12px;
+}
+.focusedDivOptions {
+    height: 600px;
+    width: 300px;
+    background-color: lightcyan;
+    padding: 10px;
+    position: absolute;
+    border: 3px solid blue;
+    display: none;
+    z-index: 100;
+    overflow-y: scroll;
+}
+.textOptions {
+    height: 600px;
+    width: 300px;
+    background-color: lightcyan;
+    padding: 10px;
+    position: absolute;
+    border: 3px solid blue;
+    display: none;
+    z-index: 100;
+    overflow-y: scroll;
+}
+.focused {
+    cursor: all-scroll;
+}
+.resizeew {
+    cursor: ew-resize;
+}
+.resizens {
+    cursor: ns-resize;
+}
+.creationZone {
+    height: 100vh;
+}
+.optionsButton {
+    background-color: blue;
+    padding: 10px;
+    color: white;
+    font-weight: bolder;
+    display: block;
+    margin: 0 auto;
+}
+.deleteButton {
+    background-color: red;
+    padding: 10px;
+    width: 150px;
+    color: white;
+    font-weight: bolder;
+    border: 2px solid black;
+    display: block;
+    margin: 0 auto;
+}
+
+input {
+    text-align: center;
+}
+.elementListBox {
+    width: 200px;
+    background-color: lightcyan;
+    position: absolute;
+    right: 8px;
+    border: 3px solid blue;
+    z-index: 120;
+    display: none;
+    text-align: center;
+}
+
+.showElementList {
+    position: absolute;
+    top: 98px;
+    right: 8px;
+    height: 30px;
+    background-color: blue;
+    font-weight: bolder;
+    color: white;
+}
+.showInstructions {
+    position: absolute;
+    top: 98px;
+    height: 30px;
+    background-color: blue;
+    font-weight: bolder;
+    color: white;
+}
+#ElementList {
+    list-style-type: none;
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0px;
+}
+.listElement {
+    padding: 5px;
+    border-top: 2px solid blue;
+    background-color: gray;
+    color: white;
+}
+.listElement:hover {
+    background-color: black;
+    cursor: pointer;
+}
+.formElement {
+    margin-top: 5px;
+}
+
+.lbl {
+    display: inline-block;
+    width: 55px;
+}
+.borderSpan {
+    width: 200px;
+}
+.borderOptions {
+    width: 100%;
+}
