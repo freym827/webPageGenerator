@@ -654,3 +654,37 @@ const closeDragElement = () => {
     document.onmouseup = null
     document.onmousemove = null
 }
+
+const getHTML = () => {
+    while( document.getElementById('Output').firstChild ){
+        document.getElementById('Output').removeChild( document.getElementById('Output').firstChild );
+    }
+    document.getElementById('HideOutput').style.display = 'block'
+    document.getElementById('Output').style.display = 'block'
+    let headP = document.createElement('p')
+    headP.textContent = '<!DOCTYPE html>\n <html lang="en">\n <head>\n<meta charset="UTF-8"> \n<meta name="viewport" content="width=device-width, initial-scale=1.0"> \n<meta http-equiv="X-UA-Compatible" content="ie=edge">\n<title>My New Site</title>\n</head>\n<body>'
+    document.getElementById('Output').appendChild(headP)
+    for(i=0;i<divArray.length;i++) {
+        newTop = divArray[i].style.top.substring(0, divArray[i].style.top.length-2)
+        newTop = newTop - 127
+        divArray[i].style.top = newTop + 'px'
+    }
+    for(i=0;i<divArray.length;i++) {
+        let newP = document.createElement('p')
+        newP.textContent = divArray[i].outerHTML
+        document.getElementById('Output').appendChild(newP)
+    }
+    let tailP = document.createElement('p')
+    tailP.textContent = '</body>\n </html>'
+    document.getElementById('Output').appendChild(tailP)
+    for(i=0;i<divArray.length;i++) {
+        newTop = divArray[i].style.top.substring(0, divArray[i].style.top.length-2)
+        newTop = Number(newTop) + 127
+        divArray[i].style.top = newTop + 'px'
+    }
+}
+
+const hideHTML = () => {
+    document.getElementById('Output').style.display = 'none'
+    document.getElementById('HideOutput').style.display = 'none'
+}
