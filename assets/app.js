@@ -1,14 +1,19 @@
 const MakeBox = document.getElementById('MakeABox')
 const MakeText = document.getElementById('MakeAText')
+const MakeButton = document.getElementById('MakeAButton')
+const MakeImage = document.getElementById('MakeAImage')
 const CreationZone = document.getElementById('CreationZone')
 let numOfDivs = 0
 let numOfTexts = 0
+let numOfButtons = 0
+let numOfImages = 0
 let divArray = []
 let elementListArray = []
 let focusedDiv
 let resizeDivs = []
 optionBox = document.getElementById('FocusedDivOptions')
 optionBoxText = document.getElementById('TextOptions')
+optionBoxImage = document.getElementById('ImageOptions')
 elementListBox = document.getElementById('ElementListBox')
 let formElements = document.getElementsByClassName('formElement')
 
@@ -28,7 +33,7 @@ MakeBox.onclick = () => {
 
 MakeText.onclick = () => {
     let newText = document.createElement('div')
-    newText.setAttribute("style","font-weight: normal; text-decoration: none; font-style: normal; color: #000000; width: 100px; height: 20px; position: absolute; top: 400px; left: 600px; z-index: 0")
+    newText.setAttribute("style","font-size: 16px; font-weight: normal; text-decoration: none; font-style: normal; color: #000000; width: 100px; height: 20px; position: absolute; top: 400px; left: 600px; z-index: 0")
     numOfTexts++
     newText.textContent = 'SOME TEXT'
     newText.classList.add("text")
@@ -41,12 +46,86 @@ MakeText.onclick = () => {
     listElements()
 }
 
+MakeButton.onclick = () => {
+    let newButton = document.createElement('button')
+    newButton.setAttribute("style", "border:2px solid #000000; height: 30px; width: 60px; background-color: #cccccc; position: absolute; top: 400px; left: 600px; z-index: 0")
+    numOfButtons++
+    newButton.classList.add("button")
+    newButton.classList.add("button" + numOfButtons)
+    newButton.setAttribute('name', "button" + numOfButtons)
+    newButton.onmousedown = handleMouseDownDiv
+    newButton.ondblclick = toggleOptionBox
+    CreationZone.appendChild(newButton)
+    divArray.push(newButton)
+    listElements()
+}
+
+MakeImage.onclick = () => {
+    let newImage = document.createElement('img')
+    newImage.setAttribute("style", "height: 60px; width: 60px;  position: absolute; top: 400px; left: 600px; z-index: 0")
+    numOfImages++
+    newImage.setAttribute('alt', 'image' + numOfImages)
+    newImage.setAttribute('src', "")
+    newImage.classList.add("image")
+    newImage.classList.add("image" + numOfImages)
+    newImage.setAttribute('name', "image" + numOfImages)
+    newImage.onmousedown = handleMouseDownImage
+    newImage.ondblclick = toggleOptionBoxImage
+    CreationZone.appendChild(newImage)
+    divArray.push(newImage)
+    listElements()
+}
+
+const onFileSelected = event => {
+    var selectedFile = event.target.files[0];
+    var reader = new FileReader();
+  
+    reader.onload = function(event) {
+      focusedDiv.src = event.target.result;
+    };
+    if(selectedFile) {
+        reader.readAsDataURL(selectedFile);
+    }
+}
+
+const handleMouseDownDiv = e => {
+    focusedDiv = e.target 
+    optionBoxText.style.display='none'
+    optionBoxImage.style.display = 'none'
+    if(!focusedDiv.classList.contains('focused')) {
+        optionBox.style.display = 'block'
+        setOptionBox()
+        removeFocusBox()
+        createFocusBox(focusedDiv)
+        focusedDiv.classList.add('focused')
+        return
+    }
+    document.onmouseup = closeDragElement
+    document.onmousemove = elementDrag
+}
+
 const handleMouseDownText = e => {
     focusedDiv = e.target 
     optionBox.style.display = 'none'
+    optionBoxImage.style.display = 'none'
     if(!focusedDiv.classList.contains('focused')) {
         optionBoxText.style.display = 'block'
         setOptionBoxText()
+        removeFocusBox()
+        createFocusBox(focusedDiv)
+        focusedDiv.classList.add('focused')
+        return
+    }
+    document.onmouseup = closeDragElement
+    document.onmousemove = elementDrag
+}
+const handleMouseDownImage = e => {
+    focusedDiv = e.target 
+    optionBox.style.display = 'none'
+    optionBoxText.style.display = 'none'
+    if(!focusedDiv.classList.contains('focused')) {
+        optionBoxImage.style.display = 'block'
+        setOptionBoxImage()
         removeFocusBox()
         createFocusBox(focusedDiv)
         focusedDiv.classList.add('focused')
@@ -104,6 +183,14 @@ const toggleOptionBoxText = () => {
     optionBoxText.style.display = 'block'
 }
 
+const toggleOptionBoxImage = () => {
+    if(optionBoxImage.style.display == 'block') {
+        optionBoxImage.style.display = 'none'
+        return
+    }
+    optionBoxImage.style.display = 'block'
+}
+
 document.onmousedown = e => {
     let isDivArray = false
     if(e.target == document.getElementById('ShowInstructions')) {
@@ -145,6 +232,7 @@ document.onmousedown = e => {
         focusedDiv = ''
         optionBox.style.display = 'none'
         optionBoxText.style.display = 'none'
+        optionBoxImage.style.display = 'none'
         removeFocusBox()
     }
 }
@@ -172,20 +260,6 @@ const handleElementListClick = e => {
         setOptionBoxText()
     }
 }
-const handleMouseDownDiv = e => {
-    focusedDiv = e.target 
-    optionBoxText.style.display='none'
-    if(!focusedDiv.classList.contains('focused')) {
-        optionBox.style.display = 'block'
-        setOptionBox()
-        removeFocusBox()
-        createFocusBox(focusedDiv)
-        focusedDiv.classList.add('focused')
-        return
-    }
-    document.onmouseup = closeDragElement
-    document.onmousemove = elementDrag
-}
 
 const setOptionBox = () => {
     document.getElementById('FormBorderStyle').value = focusedDiv.style.borderStyle
@@ -210,6 +284,7 @@ const setOptionBoxText = () => {
      document.getElementById('FormWidthText').value = focusedDiv.style.width.substring(0, focusedDiv.style.width.length -2)
      document.getElementById('FormHeightText').value = focusedDiv.style.height.substring(0, focusedDiv.style.height.length -2)
      document.getElementById('FormLevelText').value = focusedDiv.style.zIndex
+     document.getElementById('FormFontSize').value = focusedDiv.style.fontSize.substring(0, focusedDiv.style.fontSize.length-2)
      if(focusedDiv.style.fontStyle == 'italic') {
          document.getElementById('ITALIC').checked = true
      }else {
@@ -230,6 +305,15 @@ const setOptionBoxText = () => {
      let rgb = getRGB(focusedDiv.style.color)
      let color = '#' + fullColorHex(rgb[0], rgb[1], rgb[2])
      document.getElementById('FormColorText').value = color
+}
+
+const setOptionBoxImage = () => {
+    document.getElementById('FormNameImage').value = focusedDiv.getAttribute('name')
+    document.getElementById('FormWidthImage').value = focusedDiv.style.width.substring(0, focusedDiv.style.width.length -2)
+    document.getElementById('FormHeightImage').value = focusedDiv.style.height.substring(0, focusedDiv.style.height.length -2)
+    document.getElementById('FormLevelImage').value = focusedDiv.style.zIndex
+    document.getElementById('FormTopImage').value = focusedDiv.style.top.substring(0, focusedDiv.style.top.length-2)
+    document.getElementById('FormLeftImage').value = focusedDiv.style.left.substring(0, focusedDiv.style.left.length-2)
 }
 const getRGB = rgb => {
     let firstSplit = rgb.split('(')
@@ -262,6 +346,8 @@ const deleteDiv = () => {
     removeFocusBox()
     listElements()
     optionBox.style.display = 'none'
+    optionBoxText.style.display = 'none'
+    optionBoxImage.style.display = 'none'
 }
 
 const rgbToHex = rgb => { 
@@ -407,10 +493,15 @@ const handleResizeMouseUp = () => {
     if(focusedDiv.classList.contains('div')) {
         setOptionBox()
     }
+    if(focusedDiv.classList.contains('button')) {
+        setOptionBox()
+    }
     if(focusedDiv.classList.contains('text')) {
         setOptionBoxText()
     }
-    
+    if(focusedDiv.classList.contains('image')) {
+        setOptionBoxImage()
+    }
 }
 
 const applyChanges = () => {
@@ -453,6 +544,7 @@ const applyChangesText = () => {
     if(newTop < 127) {
         newTop = 127
     }
+    focusedDiv.style.fontSize = document.getElementById('FormFontSize').value + 'px'
     focusedDiv.style.top = newTop +'px'
     focusedDiv.style.left = document.getElementById('FormLeftText').value + 'px'
     removeFocusBox()
@@ -474,6 +566,37 @@ const applyChangesText = () => {
     }
     let newWidth = document.getElementById('FormWidthText').value
     let newHeight = document.getElementById('FormHeightText').value
+    focusedDiv.style.width = newWidth + 'px'
+    focusedDiv.style.height = newHeight + 'px'
+    resizeDivs[0].style.height = newHeight + 'px'
+    resizeDivs[1].style.height = newHeight + 'px'
+    resizeDivs[2].style.width = newWidth + 'px'
+    resizeDivs[3].style.width = newWidth + 'px'
+    let rightPosition = Number(focusedDiv.style.left.substring(0, focusedDiv.style.left.length-2)) + Number(focusedDiv.style.width.substring(0, focusedDiv.style.width.length-2))
+    resizeDivs[1].style.left = (rightPosition+5) + 'px'
+    let bottomPosition = Number(focusedDiv.style.top.substring(0, focusedDiv.style.top.length-2)) + Number(focusedDiv.style.height.substring(0, focusedDiv.style.height.length-2))
+    resizeDivs[3].style.top = (bottomPosition+5) + 'px'
+    listElements()
+}
+
+const applyChangesImage = () => {
+    let newName = document.getElementById('FormNameImage').value
+    focusedDiv.setAttribute('name', newName)
+    let imageURL = document.getElementById('FormURL').value 
+    if(imageURL) {
+        focusedDiv.src = imageURL
+    }
+    let newTop = document.getElementById('FormTopImage').value
+    if(newTop < 127) {
+        newTop = 127
+    }
+    focusedDiv.style.top = newTop +'px'
+    focusedDiv.style.left = document.getElementById('FormLeftImage').value + 'px'
+    removeFocusBox()
+    createFocusBox(focusedDiv)
+    focusedDiv.style.zIndex = document.getElementById('FormLevelImage').value
+    let newWidth = document.getElementById('FormWidthImage').value
+    let newHeight = document.getElementById('FormHeightImage').value
     focusedDiv.style.width = newWidth + 'px'
     focusedDiv.style.height = newHeight + 'px'
     resizeDivs[0].style.height = newHeight + 'px'
@@ -518,8 +641,14 @@ const closeDragElement = () => {
     if(focusedDiv.classList.contains('div')) {
         setOptionBox()
     }
+    if(focusedDiv.classList.contains('button')) {
+        setOptionBox()
+    }
     if(focusedDiv.classList.contains('text')) {
         setOptionBoxText()
+    }
+    if(focusedDiv.classList.contains('image')) {
+        setOptionBoxImage()
     }
     //focusedDiv = ""
     document.onmouseup = null

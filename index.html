@@ -14,6 +14,8 @@
       <span class='headHead'>Make a:</span><br><br>
       <button class='makeAButton makeABox' id='MakeABox'><span class='square'>&#9633;</span></button>
       <button class='makeAButton makeAText' id='MakeAText'>Text</button>
+      <button class='makeAButton makeAText makeButton' id='MakeAButton'>Button</button>
+      <button class='makeAButton makeAText makeAImage' id='MakeAImage'>Image</button>
     </div>
     <button class='showElementList' id='ShowElementList' onclick='showElementList()'>Show list of elements</button>
   </div>
@@ -70,6 +72,8 @@
       <input type='text' class='formElement nameInputText' id='FormNameText'><br>
       <span class='lbl textSpan formElement'>Text: </span><br>
       <textarea class='formElement textInput' id='FormText' style='width: 250px; height: 100px;' ></textarea>
+      <span class='lbl levelSpan formElement'>Font Size: </span>
+      <input type='number' class='formElement fontSizeInput' id='FormFontSize'><br>
       <span class='lbl widthSpan formElement'>Width: </span>
       <input type='number' class='formElement widthInputText' id='FormWidthText'><br>
       <span class='lbl heightSpan formElement'>Height: </span>
@@ -88,6 +92,29 @@
       <span class='lbl levelSpan formElement'>Left position: </span>
       <input type='number' class='formElement leftInputText' id='FormLeftText'><br>
       <button class='optionsButton formElement' id='OptionsButtonText' onclick='applyChangesText()'>Apply Settings</button><br><br>
+      <button class='deleteButton formElement' id='deleteButtonText' onclick='deleteDiv()'>DELETE ELEMENT FROM PAGE</button><br><br>
+  </div>
+  <div class='imageOptions' id='ImageOptions'>
+      <h1 class='formElement' style='text-align: center; margin-bottom: 0px; padding-bottom: 0px;'>Image Options</h1>
+      <span class='formElement statement' style='font-size: 10px; width: 100%; text-align: center; display: inline-block;'>*Double click element to hide/show this box</span><br>
+      <span class='lbl nameSpan formElement'>Name: </span>
+      <input type='text' class='formElement nameInputImage' id='FormNameImage'><br>
+      <span class='lbl nameSpan formElement' style='width: 100%;'>Upload Image: </span>
+      <input type="file" name="pic" accept="image/*" class='formElement imageInput' id='FormImage' onchange="onFileSelected(event)">
+      <span class='lbl nameSpan formElement' style='width: 100%;'>Image from link: </span>
+      <input type='text' class='formElement urlInput' id='FormURL' style='width: 100%;'><br>
+      <span class='lbl widthSpan formElement'>Width: </span>
+      <input type='number' class='formElement widthInputImage' id='FormWidthImage'><br>
+      <span class='lbl heightSpan formElement'>Height: </span>
+      <input type='number' class='formElement heightInputImage' id='FormHeightImage'><br>
+      <span class='lbl levelSpan formElement'>Level: </span>
+      <input type='number' class='formElement levelInputImage' id='FormLevelImage'><br>
+      <span class='lbl levelSpan formElement'>Top position: </span>
+      <input type='number' class='formElement topInputImage' id='FormTopImage'><br>
+      <span class='formElement statement' style='font-size: 10px; width: 100%; text-align: center; display: inline-block; font-weight: bold;'>*Minimum 127</span><br>
+      <span class='lbl levelSpan formElement'>Left position: </span>
+      <input type='number' class='formElement leftInputImage' id='FormLeftImage'><br>
+      <button class='optionsButton formElement' id='OptionsButtonText' onclick='applyChangesImage()'>Apply Settings</button><br><br>
       <button class='deleteButton formElement' id='deleteButtonText' onclick='deleteDiv()'>DELETE ELEMENT FROM PAGE</button><br><br>
   </div>
   <div class='creationZone' id='CreationZone'>
