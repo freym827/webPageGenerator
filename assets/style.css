@@ -108,9 +108,8 @@
     color: white;
 }
 .hideOutput {
-    position: absolute;
-    left: 50%;
-    bottom: 0px;
+    margin: 0 auto;
+    margin-bottom: 50px;
     height: 30px;
     background-color: blue;
     font-weight: bolder;

@@ -19,7 +19,7 @@ let formElements = document.getElementsByClassName('formElement')
 
 MakeBox.onclick = () => {
     let newDiv = document.createElement("div")
-    newDiv.setAttribute("style", "border:2px solid #000000; height: 50px; width: 50px; background-color: #ffffff; position: absolute; top: 400px; left: 600px; z-index: 0")
+    newDiv.setAttribute("style", "box-sizing: border-box; border:2px solid #000000; height: 50px; width: 50px; background-color: #ffffff; position: absolute; top: 400px; left: 600px; z-index: 0")
     numOfDivs++
     newDiv.classList.add("div")
     newDiv.classList.add("div" + numOfDivs)
@@ -48,7 +48,7 @@ MakeText.onclick = () => {
 
 MakeButton.onclick = () => {
     let newButton = document.createElement('button')
-    newButton.setAttribute("style", "border:2px solid #000000; height: 30px; width: 60px; background-color: #cccccc; position: absolute; top: 400px; left: 600px; z-index: 0")
+    newButton.setAttribute("style", "box-sizing: border-box; border:2px solid #000000; height: 30px; width: 60px; background-color: #cccccc; position: absolute; top: 400px; left: 600px; z-index: 0")
     numOfButtons++
     newButton.classList.add("button")
     newButton.classList.add("button" + numOfButtons)
